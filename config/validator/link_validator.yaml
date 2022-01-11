@@ -1,0 +1,28 @@
+App\Entity\Link:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: name
+        errorPath: name
+        message: 'Ce nom {{ value }} est déjà utilisé.'
+  properties:
+    name:
+      - NotBlank: ~
+      - Length:
+          min: 2
+          max: 255
+          minMessage: 'Le nom "{{ value }}" doit avoir plus de 2 caractères'
+          maxMessage: 'Le nom "{{ value }}" ne peut pas avoir plus de 50 caractères'
+    icon:
+      - NotBlank: ~            
+      - Length:
+          min: 3
+          max: 30
+          minMessage: 'Une icône "{{ value }}" doit avoir plus de 3 caractères'
+          maxMessage: 'une icône "{{ value }}" ne peut pas avoir plus de 30 caractères'
+    link:
+      - NotBlank: ~            
+      - Length:
+          min: 3
+          max: 255
+          minMessage: 'Une URL "{{ value }}" doit avoir plus de 3 caractères'
+          maxMessage: 'une URL "{{ value }}" ne peut pas avoir plus de 30 caractères'

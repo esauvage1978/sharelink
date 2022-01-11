@@ -1,0 +1,15 @@
+a {
+    text-decoration: none;
+    color:#32a0ef !important;
+}
+
+body 
+{
+    background-color: #f8ffff;
+}
+
+.card-header
+{
+    color: #32a0ef !important;
+    font-weight: 700;
+}

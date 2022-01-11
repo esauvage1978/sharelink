@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+{% import "macros/widgets.html.twig" as widgets %}
+
+
+{% block title %}
+	{{ app_name }}
+	- Liste des liens
+{% endblock %}
+
+{% block page_title %}
+
+
+{% endblock %}
+
+
+{% block page_content %}
+
+<div class="mt-2 row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-4 items">
+
+        
+
+
+
+	</div>
+
+{% endblock %}
+
+{%  block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+    let links=[]
+    const items = document.querySelector(".items")
+    const searchLink = document.querySelector("#search")
+    var url = '/ajax/links';
+
+const fetchdatas = () => {
+  fetch(url)
+    .then(res => {
+      res
+        .json()
+        .then(res => {
+          links = res
+          showLinks(links)
+        })
+        .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
+}
+
+    
+    const showLinks = arr => {
+        let output = "";
+
+        for (let value of arr) {
+            output += `
+                <a href="${value.link}" target="_blank" class="col text-p-dark col      hvr-float-shadow">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-header bg-white">
+                            <span class="bold">${value.name}</span>
+                            <div class="float-end "> `;
+            if (value.isSecure===true) {
+                output += `<small class="badge bg-light text-primary" title="Application sécurisée"><i class="fas fa-lock"></i></small>`;
+            }    
+            output += `<small class="badge bg-light text-secondary" title="${value.category}"><i class="${value.icon}"></i></small>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <small class="text-muted ">${value.content}</small>
+                        </div>
+                     
+                    </div>
+                  
+                </a>
+                 
+            `;
+        };
+            
+        items.innerHTML=output;
+    }
+
+document.addEventListener("DOMContentLoaded", fetchdatas)
+
+searchLink.addEventListener("input", e => {
+  const element = e.target.value.toLowerCase()
+  const newlink = links.filter(link =>
+    link.name.toLowerCase().includes(element)
+    ||
+    link.content.toLowerCase().includes(element)
+  )
+
+  showLinks(newlink)
+})
+    </script>
+
+{% endblock %}

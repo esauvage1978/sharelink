@@ -1,0 +1,13 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        app_name: '%env(ES_APP_NAME)%'
+        app_name_description: '%env(ES_APP_CONTENT)%'
+        es_contact_name: '%env(ES_CONTACT_NAME)%'
+        es_contact_mail: '%env(ES_CONTACT_MAIL)%'
+        es_contact_tel: '%env(ES_CONTACT_TEL)%'
+        es_copyright: '%env(ES_COPYRIGHT)%'
+
+when@test:
+    twig:
+        strict_variables: true
